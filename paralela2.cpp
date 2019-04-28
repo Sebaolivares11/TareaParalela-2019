@@ -1,3 +1,4 @@
+//Autor: Sebastian Olivares Email: Sebastian.olivaresp@utem.cl
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
@@ -6,7 +7,7 @@
 
 using namespace std;
 
-
+//llena el arreglo con numeros random
 void llenar_random(int arreglo[])
 {
 	srand(time(NULL));// numeros random en los que su "semilla" es variable
@@ -18,7 +19,7 @@ void llenar_random(int arreglo[])
 	x =0;
 		}
 	}	
-
+// calculo de la media en el arreglo
 int media(int arreglo[], int n){
 int sum = 0;
 for (int i = 0; i < n; i++){
@@ -26,7 +27,8 @@ for (int i = 0; i < n; i++){
 	    }
      return sum / n;
 }
-	 
+
+//Calculo de la varianza
 int varianza(int arreglo[], int n){
  int mediaV = media(arreglo, n);
  int sum = 0;
@@ -35,7 +37,7 @@ int varianza(int arreglo[], int n){
 	}
  return sum / (n-1);
 	}
-
+//calculo de la desviacion estandar en base a la varianza
 int desviacion(int varianza){
  int des = sqrt(varianza);
  return des;
