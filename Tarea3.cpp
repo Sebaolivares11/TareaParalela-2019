@@ -1,4 +1,8 @@
-#include <stdio.h>
+
+/* Autor: Sebastian Olivares Pizarro
+	 Referencias:mpitutorial.com/tutorials
+*/
+
 #include <stdlib.h>
 #include <string.h>
 //cabecera de las llamadas a MPI
@@ -6,7 +10,7 @@
 #include <time.h>
 #include <tgmath.h>
 
-#define N 10 //tamaño arreglo
+#define N 100000 //tamaño arreglo fixeado con sus respectivas pruebas
 
 
 // ---------------------------------------------FUNCIONES :<----------------------------------------------------------------//
@@ -72,9 +76,7 @@ int* crear_sub_vec(int begin, int end, int* origin){ // crea un sub vector para 
     return promedio;
   }
 
-int* crear_sub_vec(int begin, int end, int* origin);
-void print(int my_rank, int comm_size, int n_over_p, int* sub_vec);
-void llenar_random(int arreglo[], int tam);
+
 
 
 
@@ -107,7 +109,7 @@ int main(void) {
     if(my_rank != 0){ // procesos paralelos distintos de 0
       sub_vec = (int*)malloc(n_over_p * sizeof(int));
       MPI_Recv(sub_vec, n_over_p, MPI_INT,0,0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-      print(my_rank, comm_sz ,n_over_p,sub_vec);
+    /*  print(my_rank, comm_sz ,n_over_p,sub_vec);*/ // funcion que mostraba los datos del arreglo para comprobar
       sub_promedio_i = promedio_sub_vector(sub_vec, n_over_p);
       printf("Subpromedio: %lf\n",sub_promedio_i );
       MPI_Send(&sub_promedio_i,1,MPI_FLOAT,0,0,MPI_COMM_WORLD);// envia los subpromedios al proceso 0
@@ -124,11 +126,11 @@ int main(void) {
       }
 
       sub_vec= crear_sub_vec(0,n_over_p,arreglo);
-      print(my_rank, comm_sz ,n_over_p,sub_vec);
+    /*  print(my_rank, comm_sz ,n_over_p,sub_vec);*/ // Funcion que imprime el sub arreglo
       sub_promedio_0= promedio_sub_vector(sub_vec,n_over_p);
       printf("Subpromedio: %lf\n", sub_promedio_0 );
-       // condicion para que se ejecuten los calculos al terminar los procesos paralelos
-      for(int j=1 ;j<comm_sz; j++)
+
+      for(int j=1 ;j<comm_sz; j++) // para cada proceso se juntan en el 0
         {
           MPI_Recv(&sub_promedio_i,1,MPI_FLOAT,j,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
 					s_promedio += sub_promedio_i;
