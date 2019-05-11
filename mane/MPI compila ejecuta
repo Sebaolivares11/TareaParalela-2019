@@ -1,0 +1,8 @@
+comandos MPI
+para compilar:
+C > mpicc
+c++ > mpic++  
+ se le agrega  ----> "main.cpp/.c" >> -o "nombre ejecutable"
+**Para ejecutar**
+mpirun -np(n°procesadores) ./"nombre_ejecutable"
+
